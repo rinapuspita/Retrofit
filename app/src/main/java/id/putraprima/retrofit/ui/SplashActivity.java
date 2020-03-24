@@ -26,6 +26,7 @@ import java.util.List;
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
 import id.putraprima.retrofit.api.models.AppVersion;
+import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.models.LoginResponse;
 import id.putraprima.retrofit.api.services.ApiInterface;
 import retrofit2.Call;
@@ -103,8 +104,8 @@ public class SplashActivity extends AppCompatActivity {
                     setAppVersion(SplashActivity.this, response.body().getVersion());
                 }
                 //Todo : 3. Implementasikan Proses Pindah Ke MainActivity Jika Proses getAppVersion() sukses
-                String nameApp = lblAppName.getText().toString();
-                String verApp = lblAppVersion.getText().toString();
+                String nameApp = getAppName(SplashActivity.this);
+                String verApp = getAppVersion(SplashActivity.this);
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 intent.putExtra(APP_NAME, nameApp);
                 intent.putExtra(APP_VERSION, verApp);
@@ -132,7 +133,7 @@ public class SplashActivity extends AppCompatActivity {
     }
     public static String getAppVersion(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(APP_VERSION, "1.0.0");
+        return preferences.getString(APP_VERSION, "0");
     }
 
     public static void setAppVersion(Context context, String appVer) {
@@ -155,5 +156,6 @@ public class SplashActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
 
 }

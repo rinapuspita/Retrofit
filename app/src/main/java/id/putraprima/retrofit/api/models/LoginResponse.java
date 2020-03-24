@@ -1,44 +1,38 @@
 package id.putraprima.retrofit.api.models;
 
 public class LoginResponse {
-    public String UserId,FirstName,LastName,ProfilePicture;
 
-    public LoginResponse(String userId, String firstName, String lastName, String profilePicture) {
-        UserId = userId;
-        FirstName = firstName;
-        LastName = lastName;
-        ProfilePicture = profilePicture;
+    public String token;
+    public String token_type;
+    public int expires_in;
+
+    public LoginResponse(String token, String token_type, int expires_in) {
+        this.token = token;
+        this.token_type = token_type;
+        this.expires_in = expires_in;
     }
 
-    public String getUserId() {
-        return UserId;
+    public String getToken() {
+        return token;
     }
 
-    public void setUserId(String userId) {
-        UserId = userId;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getToken_type() {
+        return token_type;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setToken_type(String token_type) {
+        this.token_type = token_type;
     }
 
-    public String getLastName() {
-        return LastName;
+    public int getExpires_in() {
+        return expires_in;
     }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
-    }
-
-    public String getProfilePicture() {
-        return ProfilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        ProfilePicture = profilePicture;
+    public void setExpires_in(int expires_in) {
+        this.expires_in = expires_in;
     }
 }
