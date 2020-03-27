@@ -2,7 +2,9 @@ package id.putraprima.retrofit.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_NAME = "nameKey";
     private static final int ID_KEY = 0;
     TextView textId, textName, textEmail;
+    String nama, email, token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,9 @@ public class LoginActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             // TODO: display value here
-            getData(extras.getString("token_type")+ " " + extras.getString("token"));
+            System.out.println(token);
+            token = extras.getString("token");
+            getData(token);
         }
     }
     public void getData(String token){
@@ -43,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(response != null) {
                     textName.setText(response.body().data.name);
                     textEmail.setText(response.body().data.email);
+                    nama = response.body().data.name;
+                    email = response.body().data.email;
                 }
             }
 
@@ -52,5 +59,25 @@ public class LoginActivity extends AppCompatActivity {
             }
         }));
 
+    }
+
+    public void handlerEProfile(View view) {
+        Intent intent = new Intent(LoginActivity.this, EProfileActivity.class);
+        intent.putExtra("nama", nama);
+        intent.putExtra("email", email);
+        intent.putExtra("token", token);
+        startActivity(intent);
+    }
+
+    public void handlerEPass(View view) {
+        Intent intent = new Intent(LoginActivity.this, EPassActivity.class);
+        intent.putExtra("token", token);
+        startActivity(intent);
+    }
+
+    public void handlerLogout(View view) {
+        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

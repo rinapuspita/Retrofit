@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ApiInterface mListener;
     RegisterRequest registerRequest;
     MeRequest meRequest;
+    private SplashActivity splash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +66,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.bntToRegister);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            // TODO: display value here
-            appName.setText(extras.getString(APP_NAME));
-            appVersion.setText(extras.getString(APP_VERSION));
-        }
+        appName.setText(splash.getAppName(MainActivity.this));
+        appVersion.setText(splash.getAppVersion(MainActivity.this));
 
     }
 public void login() {
@@ -88,8 +85,7 @@ public void login() {
                 meRequest = new MeRequest(response.body().getToken());
                 me();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.putExtra("token", response.body().token);
-                intent.putExtra("token_type", response.body().token_type);
+                intent.putExtra("token", response.body().token_type + " " + response.body().token);
                 startActivity(intent);
             }
         }
@@ -108,19 +104,6 @@ public void login() {
             @Override
             public void onResponse(Call<MeResponse> call, Response<MeResponse> response) {
                 if(response != null) {
-//                    Toast.makeText(MainActivity.this, response.body().getName(), Toast.LENGTH_SHORT).show();
-//                    setId(MainActivity.this, response.body().getId());
-//                    setName(MainActivity.this, response.body().getName());
-//                    setEmail(MainActivity.this, response.body().getEmail());
-
-//                    int keyId = getId(MainActivity.this);
-//                    String keyName = getName(MainActivity.this);
-//                    String keyEmail = getEmail(MainActivity.this);
-//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                    intent.putExtra(String.valueOf(ID_KEY), keyId);
-//                    intent.putExtra(KEY_NAME, keyName);
-//                    intent.putExtra(EMAIL_KEY, keyEmail);
-//                    startActivity(intent);
                 }
             }
 

@@ -107,8 +107,6 @@ public class SplashActivity extends AppCompatActivity {
                 String nameApp = getAppName(SplashActivity.this);
                 String verApp = getAppVersion(SplashActivity.this);
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                intent.putExtra(APP_NAME, nameApp);
-                intent.putExtra(APP_VERSION, verApp);
                 startActivity(intent);
 
             }

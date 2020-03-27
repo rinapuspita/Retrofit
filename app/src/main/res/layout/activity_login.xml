@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/id"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:layout_marginBottom="20dp"-->
-<!--        android:text="Id"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/name"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline3" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/id"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="60dp"-->
+    <!--        android:layout_marginBottom="20dp"-->
+    <!--        android:text="Id"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/name"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline3" />-->
 
     <TextView
         android:id="@+id/name"
@@ -65,4 +65,45 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/btnEProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Edit Profile"
+        android:onClick="handlerEProfile"
+        app:layout_constraintBottom_toTopOf="@+id/btnEPass"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <Button
+        android:id="@+id/btnEPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="Edit Password"
+        android:onClick="handlerEPass"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="handlerLogout"
+        android:text="Logout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.71" />
 </androidx.constraintlayout.widget.ConstraintLayout>
