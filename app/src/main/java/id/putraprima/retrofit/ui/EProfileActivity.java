@@ -13,7 +13,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
+import id.putraprima.retrofit.api.models.ApiError;
 import id.putraprima.retrofit.api.models.Data;
+import id.putraprima.retrofit.api.models.ErrorUtils;
 import id.putraprima.retrofit.api.models.MeRequest;
 import id.putraprima.retrofit.api.models.MeResponse;
 import id.putraprima.retrofit.api.models.ProfileRequest;
@@ -57,7 +59,23 @@ public class EProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<Data<MeResponse>>() {
             @Override
             public void onResponse(Call<Data<MeResponse>> call, Response<Data<MeResponse>> response) {
-                Toast.makeText(EProfileActivity.this, "Update Profile Berhasil", Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    Toast.makeText(EProfileActivity.this, "Update Profile Berhasil", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent i = new Intent(EProfileActivity.this, LoginActivity.class);
+                    i.putExtra("token", token);
+                    startActivity(i);
+                }
+                else{
+                    ApiError error = ErrorUtils.parseError(response);
+                    if(txtName.getText().toString().isEmpty()){
+                        txtName.setError(error.getError().getName().get(0));
+                    } else if(txtEmail.getText().toString().isEmpty()){
+                        txtEmail.setError(error.getError().getEmail().get(0));
+                    } else {
+                        Toast.makeText(EProfileActivity.this, error.getError().getEmail().get(0), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
@@ -69,9 +87,6 @@ public class EProfileActivity extends AppCompatActivity {
 
     public void handleUpdate(View view) {
         updateData();
-        finish();
-        Intent i = new Intent(EProfileActivity.this, LoginActivity.class);
-        i.putExtra("token", token);
-        startActivity(i);
+
     }
 }

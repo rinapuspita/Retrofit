@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.EPassActivity">
+
     <EditText
         android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:hint="Password"
         android:inputType="textPassword"
@@ -24,6 +27,8 @@
         android:id="@+id/cpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="100dp"
         android:hint="ConfirmPassword"
         android:inputType="textPassword"
@@ -36,10 +41,13 @@
         android:id="@+id/btnUpdatePass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Password"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:onClick="handleUpPas"
+        android:text="Update Password"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

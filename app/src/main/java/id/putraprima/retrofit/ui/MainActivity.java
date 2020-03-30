@@ -21,7 +21,10 @@ import java.io.IOException;
 
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
+import id.putraprima.retrofit.api.models.ApiError;
 import id.putraprima.retrofit.api.models.AppVersion;
+import id.putraprima.retrofit.api.models.Error;
+import id.putraprima.retrofit.api.models.ErrorUtils;
 import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.models.LoginResponse;
 import id.putraprima.retrofit.api.models.MeRequest;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     RegisterRequest registerRequest;
     MeRequest meRequest;
     private SplashActivity splash;
+    String user,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +80,29 @@ public void login() {
     call.enqueue(new Callback<LoginResponse>() {
         @Override
         public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-            Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
-            Toast.makeText(MainActivity.this, response.body().getToken_type(), Toast.LENGTH_SHORT).show();
-            String expires_in = Integer.toString(response.body().getExpires_in());
-            Toast.makeText(MainActivity.this, expires_in, Toast.LENGTH_SHORT).show();
+            if (response.isSuccessful()) {
+                Toast.makeText(MainActivity.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, response.body().getToken_type(), Toast.LENGTH_SHORT).show();
+                String expires_in = Integer.toString(response.body().getExpires_in());
+                Toast.makeText(MainActivity.this, expires_in, Toast.LENGTH_SHORT).show();
 
-            if (response != null) {
-                meRequest = new MeRequest(response.body().getToken());
-                me();
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.putExtra("token", response.body().token_type + " " + response.body().token);
-                startActivity(intent);
+                if (response != null) {
+                    meRequest = new MeRequest(response.body().getToken());
+                    me();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.putExtra("token", response.body().token_type + " " + response.body().token);
+                    startActivity(intent);
+                }
+            }
+            else {
+                ApiError error = ErrorUtils.parseError(response);
+                if(etEmail.getText().toString().isEmpty()){
+                    etEmail.setError(error.getError().getEmail().get(0));
+                } else if(etPassword.getText().toString().isEmpty()){
+                    etPassword.setError(error.getError().getPassword().get(0));
+                } else {
+                    Toast.makeText(MainActivity.this, error.getError().getEmail().get(0), Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -154,25 +170,25 @@ public void login() {
     }
 
     public void handlerLogin(View view) {
-        String user = etEmail.getText().toString();
-        String pass = etPassword.getText().toString();
+        user = etEmail.getText().toString();
+        pass = etPassword.getText().toString();
         loginRequest = new LoginRequest(user, pass);
-        boolean check1, check2;
-        if (user.equals("")) {
-            Toast.makeText(this, "Isi Email Dahulu", Toast.LENGTH_SHORT).show();
-            check1 = false;
-        } else {
-            check1 = true;
-        }
-        if (pass.equals("")) {
-            Toast.makeText(this, "Isi Password Dahulu", Toast.LENGTH_SHORT).show();
-            check2 = false;
-        } else {
-            check2 = true;
-        }
-        if (check1 == true && check2 == true) {
+//        boolean check1, check2;
+//        if (user.equals("")) {
+//            Toast.makeText(this, "Isi Email Dahulu", Toast.LENGTH_SHORT).show();
+//            check1 = false;
+//        } else {
+//            check1 = true;
+//        }
+//        if (pass.equals("")) {
+//            Toast.makeText(this, "Isi Password Dahulu", Toast.LENGTH_SHORT).show();
+//            check2 = false;
+//        } else {
+//            check2 = true;
+//        }
+//        if (check1 == true && check2 == true) {
             login();
-        }
+//        }
     }
 
     public void handleRegister(View view) {

@@ -3,6 +3,7 @@ package id.putraprima.retrofit.api.services;
 
 import id.putraprima.retrofit.api.models.AppVersion;
 import id.putraprima.retrofit.api.models.Data;
+import id.putraprima.retrofit.api.models.Envelope;
 import id.putraprima.retrofit.api.models.LoginRequest;
 import id.putraprima.retrofit.api.models.LoginResponse;
 import id.putraprima.retrofit.api.models.MeRequest;
@@ -32,6 +33,9 @@ public interface ApiInterface{
 
     @GET("/api/auth/me/{token}")
     Call<MeResponse> doMe(@Path("token") MeRequest meRequest);
+
+    @GET("/api/auth/me")
+    Call<Envelope<MeResponse>> me();
 
     @GET("/api/auth/me/")
     Call<Data<MeResponse>> getProfile(@Header("Authorization") String token);
